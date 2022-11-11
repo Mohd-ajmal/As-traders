@@ -15,7 +15,6 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: Colors.red,
         onPrimary: Colors.white,
-        primaryVariant: Colors.white38,
         secondary: Colors.red,
       ),
       cardTheme: const CardTheme(
@@ -49,7 +48,6 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: Colors.red,
         onPrimary: Colors.white,
-        primaryVariant: Colors.black26,
         secondary: Colors.red,
       ),
       cardTheme: const CardTheme(

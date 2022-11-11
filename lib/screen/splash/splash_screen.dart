@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:as_traders_customer_entry/constant/string.dart';
 import 'package:flutter/material.dart';
 
 import 'package:as_traders_customer_entry/routes/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,9 +16,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
+  String? registered;
+  void shared() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    registered = sharedPreferences.getString(Strings.isRegistered) ?? "false";
+  }
+
   @override
   void initState() {
     super.initState();
+    shared();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3000),
@@ -24,8 +33,11 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.repeat();
     Timer(
         const Duration(seconds: 3),
-        () => Navigator.pushNamedAndRemoveUntil(
-            context, RouteManager.signInRoute, (route) => false));
+        () => registered == "true"
+            ? Navigator.pushNamedAndRemoveUntil(
+                context, RouteManager.bottomNavigation, (route) => false)
+            : Navigator.pushNamedAndRemoveUntil(
+                context, RouteManager.signInRoute, (route) => false));
   }
 
   @override
